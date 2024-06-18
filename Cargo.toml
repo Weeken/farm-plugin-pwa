@@ -1,0 +1,15 @@
+[package]
+edition = "2021"
+name = "farm_plugin_pwa"
+authors = ["Weeken"]
+version = "0.0.1"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+farmfe_core = { version = "*" }
+farmfe_toolkit_plugin_types = { version = "*" }
+farmfe_macro_plugin = { version = "*" }
+json = { version = "*" }
+serde = { version = "1", features = ["derive"] }
