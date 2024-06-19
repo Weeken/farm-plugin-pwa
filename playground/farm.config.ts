@@ -22,8 +22,8 @@ export default defineConfig({
     [
       "farm-plugin-pwa",
       {
-        cacheName: `/front/pwa/`,
-        swName: "pwa-sw",
+        cache_name: `/front/pwa/`,
+        sw_name: "pwa-sw",
       },
     ],
   ],
