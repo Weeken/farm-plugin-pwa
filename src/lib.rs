@@ -18,6 +18,8 @@ use crate::script::generate_script;
 mod sw;
 use crate::sw::{generate_sw, insert_resource};
 
+use minify_js::{minify, Session, TopLevelMode};
+
 #[derive(serde::Deserialize, Clone)]
 pub struct Options {
   pub scope: Option<String>,
@@ -105,13 +107,16 @@ impl Plugin for FarmPluginPwa {
       // println!("static_files: {:?}", &static_files_str);
 
       let sw_text = generate_sw(&cache_name, &static_files_str, &patten);
-      // println!("sw_text: {}", sw_text);
+      let session = Session::new();
+      let mut out = Vec::new();
+      minify(&session, TopLevelMode::Global, sw_text.as_bytes(), &mut out).unwrap();
+      // println!("minify_code: {:?}", out.as_slice().to_vec());
 
       let file_name = format!("{}.js", sw_name);
 
       let sw_resource = Resource {
         name: file_name.clone(),
-        bytes: sw_text.as_bytes().to_vec(),
+        bytes: out.as_slice().to_vec(),
         emitted: false,
         resource_type: ResourceType::Js,
         origin: ResourceOrigin::Module("unknown".into()),

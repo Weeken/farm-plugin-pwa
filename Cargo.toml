@@ -13,3 +13,4 @@ farmfe_toolkit_plugin_types = { version = "*" }
 farmfe_macro_plugin = { version = "*" }
 json = { version = "*" }
 serde = { version = "1", features = ["derive"] }
+minify-js = { version = "0.6.0" }
