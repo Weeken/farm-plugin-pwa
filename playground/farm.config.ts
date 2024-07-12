@@ -6,7 +6,7 @@ export default defineConfig({
       index: "./index.html",
     },
     output: {
-      path: `dist`,
+      path: `pwa`,
       publicPath: `/front/pwa/`,
       filename: "assets/[ext]/[name].[hash].[ext]",
       assetsFilename: "static/[resourceName].[ext]",
