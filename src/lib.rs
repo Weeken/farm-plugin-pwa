@@ -47,8 +47,8 @@ pub struct FarmPluginPwa {
 }
 
 impl FarmPluginPwa {
-  fn new(_: &Config, options: String) -> Self {
-    let options: Options = serde_json::from_str(&options).unwrap();
+  fn new(_config: &Config, _options: String) -> Self {
+    let options: Options = serde_json::from_str(&_options).unwrap();
     Self { options }
   }
 }
