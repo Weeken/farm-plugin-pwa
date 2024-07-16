@@ -1,6 +1,6 @@
 {
   "name": "farm-plugin-pwa",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "scripts/index.js",
   "types": "scripts/index.d.ts",
   "type": "module",
@@ -39,5 +39,14 @@
   "files": [
     "scripts",
     "options.d.ts"
+  ],
+  "homepage": "https://github.com/Weeken/farm-plugin-pwa",
+  "keywords": [
+    "farm",
+    "farm plugin",
+    "farm-plugin",
+    "farm-plugin-pwa",
+    "rust plugin",
+    "pwa"
   ]
 }
