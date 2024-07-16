@@ -1,0 +1,1 @@
+(globalThis || window || global)['96c70b1dc0455bd80da8756721c6f6a7'].__farm_module_system__.setPublicPaths(['/front/pwa/']);(globalThis || window || global)['96c70b1dc0455bd80da8756721c6f6a7'].__farm_module_system__.bootstrap();(globalThis || window || global)['96c70b1dc0455bd80da8756721c6f6a7'].__farm_module_system__.require("2c6e69f1");

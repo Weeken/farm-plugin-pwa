@@ -11,18 +11,17 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
-    "farm-plugin-pwa": "workspace:*",
     "react": "18",
-    "react-dom": "18"
+    "react-dom": "18",
+    "farm-plugin-pwa": "workspace:*"
   },
   "devDependencies": {
-    "@farmfe/cli": "^1.0.0",
-    "@farmfe/core": "^1.2.0",
-    "@farmfe/plugin-react": "^1.0.1",
+    "@farmfe/cli": "^1.0.2",
+    "@farmfe/core": "^1.3.0",
+    "@farmfe/plugin-react": "^1.1.0",
     "@types/react": "18",
-    "@types/react-dom": "18",
     "core-js": "^3.36.1",
-    "playground": "^0.7.0",
+    "@types/react-dom": "18",
     "react-refresh": "^0.14.0"
   }
 }
