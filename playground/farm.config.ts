@@ -1,4 +1,6 @@
 import { defineConfig } from "@farmfe/core";
+import pwa from "farm-plugin-pwa";
+import react from "@farmfe/plugin-react";
 
 export default defineConfig({
   compilation: {
@@ -18,13 +20,10 @@ export default defineConfig({
     },
   },
   plugins: [
-    ["@farmfe/plugin-react", { runtime: "automatic" }],
-    [
-      "farm-plugin-pwa",
-      {
-        cache_name: `/front/pwa/`,
-        sw_name: "pwa-sw",
-      },
-    ],
+    react({ runtime: "automatic" }),
+    pwa({
+      cache_name: `/front/pwa/`,
+      sw_name: "pwa-sw",
+    }),
   ],
 });

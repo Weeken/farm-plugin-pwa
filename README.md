@@ -12,6 +12,7 @@ pnpm add -D farm-plugin-pwa
 
 ```ts
 import { defineConfig } from "@farmfe/core";
+import pwa from "farm-plugin-pwa";
 
 interface Options {
   /* Your options here */
@@ -46,6 +47,11 @@ export default defineConfig({
         sw_name: "pwa-sw",
       },
     ],
+    // or
+    pwa({
+      cache_name: `/front/pwa/`,
+      sw_name: "pwa-sw",
+    }),
   ],
 });
 ```
