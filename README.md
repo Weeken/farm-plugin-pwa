@@ -2,15 +2,15 @@
 
 A pwa rust plugin for farm
 
-[warning]
-`"@farmfe/core": "^1.2.0" --> "farm-plugin-pwa": "0.0.2"`
-`"@farmfe/core": "^1.3.0" --> "farm-plugin-pwa": "^0.1.x"`
-
 ### Install
 
 ```bash
 pnpm add -D farm-plugin-pwa
 ```
+
+> [!NOTE]
+> "@farmfe/core": "^1.2.0" --> "farm-plugin-pwa": "0.0.2"  
+> "@farmfe/core": "^1.3.0" --> "farm-plugin-pwa": "^0.1.x"
 
 ### Usage
 
