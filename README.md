@@ -2,6 +2,10 @@
 
 A pwa rust plugin for farm
 
+[warning]
+`"@farmfe/core": "^1.2.0" --> "farm-plugin-pwa": "0.0.2"`
+`"@farmfe/core": "^1.3.0" --> "farm-plugin-pwa": "^0.1.x"`
+
 ### Install
 
 ```bash
@@ -12,6 +16,7 @@ pnpm add -D farm-plugin-pwa
 
 ```ts
 import { defineConfig } from "@farmfe/core";
+import pwa from "farm-plugin-pwa";
 
 interface Options {
   /* Your options here */
@@ -46,6 +51,11 @@ export default defineConfig({
         sw_name: "pwa-sw",
       },
     ],
+    // or
+    pwa({
+      cache_name: `/front/pwa/`,
+      sw_name: "pwa-sw",
+    }),
   ],
 });
 ```
