@@ -6,7 +6,7 @@ use farmfe_core::{
   error::Result,
   plugin::{Plugin, PluginFinalizeResourcesHookParams},
   resource::{Resource, ResourceOrigin, ResourceType},
-  serde_json,
+  serde_json::{from_str, to_string, Map, Value},
 };
 
 use std::sync::Arc;
@@ -14,13 +14,13 @@ use std::sync::Arc;
 use farmfe_macro_plugin::farm_plugin;
 
 mod script;
-use crate::script::generate_script;
+use crate::script::{generate_script, inset_meta};
 mod sw;
 use crate::sw::{generate_sw, insert_resource};
 
 use minify_js::{minify, Session, TopLevelMode};
 
-#[derive(serde::Deserialize, Clone)]
+#[derive(serde::Deserialize, Clone, Debug)]
 pub struct Options {
   pub scope: Option<String>,
   /**
@@ -39,6 +39,10 @@ pub struct Options {
    * 缓存请求正则
    */
   pub patten: Option<String>,
+  /**
+   * pwa manifest
+   */
+  pub manifest: Option<Map<String, Value>>,
 }
 
 #[farm_plugin]
@@ -48,7 +52,7 @@ pub struct FarmPluginPwa {
 
 impl FarmPluginPwa {
   fn new(_config: &Config, _options: String) -> Self {
-    let options: Options = serde_json::from_str(&_options).unwrap();
+    let options: Options = from_str(&_options).unwrap();
     Self { options }
   }
 }
@@ -77,11 +81,13 @@ impl Plugin for FarmPluginPwa {
       let sw_name = options.sw_name.unwrap_or("sw".to_string());
       // println!("sw_name: {}", sw_name);
       let cache_name = options.cache_name.unwrap_or("sw-cache".to_string());
-      // println!("cache_name: {}", cache_name);
+
       let patten = options
         .patten
         .unwrap_or("/(.html|.js|.mjs|.css|.png|.jpg|.jpeg|.svg|.webp|.svga)$/".to_string());
-      // println!("patten: {}", patten);
+
+      let manifest = options.manifest.unwrap_or_default();
+      let is_manifest_empty = manifest.is_empty();
 
       let sw_js_path = format!("{}{}.js", public_path, sw_name);
 
@@ -97,9 +103,34 @@ impl Plugin for FarmPluginPwa {
         if name == "index.html" {
           let mut html_resource = resource.clone();
           let origin_html = String::from_utf8(html_resource.bytes).unwrap();
-          // println!("origin_html: {}", origin_html);
-          let new_html = format!("{}{}", origin_html, script);
-          html_resource.bytes = new_html.as_bytes().to_vec();
+
+          let mut new_html: String = origin_html;
+          if !is_manifest_empty {
+            let manifest_link = format!(
+              "<link rel=\"manifest\" href=\"{}manifest.json\" />",
+              public_path
+            );
+            new_html = inset_meta(&new_html, manifest_link);
+
+            let manifest_json = to_string(&manifest).unwrap();
+
+            let manifest_json_resource = Resource {
+              name: "manifest.json".to_string(),
+              bytes: manifest_json.as_bytes().to_vec(),
+              emitted: false,
+              resource_type: ResourceType::Custom("json".to_string()),
+              origin: ResourceOrigin::Module("unknown".into()),
+              info: None,
+            };
+
+            insert_resource(
+              _param.resources_map,
+              "manifest.json".to_string(),
+              manifest_json_resource,
+            );
+          }
+          let final_html = format!("{}{}", new_html, script);
+          html_resource.bytes = final_html.as_bytes().to_vec();
           _param.resources_map.insert(name.to_string(), html_resource);
         }
       }

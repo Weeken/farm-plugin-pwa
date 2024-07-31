@@ -4,4 +4,5 @@ export interface IPluginOptions {
   cache_name?: string;
   static_files?: string[];
   patten?: string;
+  manifest?: Record<string, any>
 }
