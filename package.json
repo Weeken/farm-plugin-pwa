@@ -1,6 +1,6 @@
 {
   "name": "farm-plugin-pwa",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "main": "scripts/index.js",
   "types": "scripts/index.d.ts",
   "type": "module",
@@ -33,6 +33,7 @@
     "dev": "cargo watch -w src -s 'scripts/watch.sh'",
     "bump": "npx changeset version",
     "play": "pnpm --filter playground build",
+    "preview": "pnpm --filter playground preview",
     "build": "farm-plugin-tools build --platform --cargo-name farm_plugin_pwa -p farm_plugin_pwa --release",
     "prepublishOnly": "farm-plugin-tools prepublish"
   },

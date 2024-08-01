@@ -18,3 +18,8 @@ pub fn generate_script(sw_js_path: &str, scope: &str) -> String {
 
   return script;
 }
+
+pub fn inset_meta(html: &String, meta_or_link: String) -> String {
+  let end_head = "</head>";
+  return html.replace(end_head, format!("{}{}", meta_or_link, end_head).as_str());
+}

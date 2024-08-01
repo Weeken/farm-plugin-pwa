@@ -23,23 +23,28 @@ interface Options {
   /**
    * scope of sw cache
    */
-  scope: string; // default: publicPath of the farm config
+  scope?: string; // default: publicPath of the farm config
   /**
    * name of the sw.js
    */
-  sw_name: string; // default: 'sw'
+  sw_name?: string; // default: 'sw'
   /**
    * name of sw cache
    */
-  cache_name: string; // default: 'sw-cache'
+  cache_name?: string; // default: 'sw-cache'
   /**
    * custom cache files
    */
-  static_files: string[]; // ['/favicon.ico']
+  static_files?: string[]; // ['/favicon.ico']
   /**
    * request url reg
    */
-  patten: string; // default:  /(.html|.js|.mjs|.css|.png|.jpg|.jpeg|.svg|.webp|.svga)$/
+  patten?: string; // default:  /(.html|.js|.mjs|.css|.png|.jpg|.jpeg|.svg|.webp|.svga)$/
+  /**
+   * Web app manifests
+   * see https://developer.mozilla.org/en-US/docs/Web/Manifest
+   */
+  manifest?: Record<string, any>;
 }
 
 export default defineConfig({
@@ -55,6 +60,40 @@ export default defineConfig({
     pwa({
       cache_name: `/front/pwa/`,
       sw_name: "pwa-sw",
+      static_files: [
+        "/front/pwa/favicon.ico",
+        "/front/pwa/robots.txt",
+        "/front/pwa/safari-pinned-tab.svg",
+      ],
+      manifest: {
+        id: "Test_PWA",
+        name: "Test_PWA",
+        short_name: "Test_PWA",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        start_url: "/front/pwa/",
+        scope: "/front/pwa/",
+        display: "standalone",
+        display_override: ["fullscreen", "minimal-ui"],
+        icons: [
+          {
+            src: "/front/pwa/pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/front/pwa/pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "/front/pwa/pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
+      },
     }),
   ],
 });
