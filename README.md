@@ -1,4 +1,4 @@
-## farm-js-plugin-pwa
+## farm-plugin-pwa
 
 A pwa rust plugin for farm
 

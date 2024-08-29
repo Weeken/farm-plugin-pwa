@@ -41,7 +41,7 @@ pub fn generate_sw(cache_name: &str, static_files: &str, patten: &str) -> String
   const isCacheSource = (url) => {
     return patten.test(url) && url.startsWith('https');
   };
-  const proxyRequest = async (request) => {
+  const proxyRequest = (request) => {
     if (isCacheSource(request.url)) {
       return caches.match(request).then(function (response) {
         if (response) {
